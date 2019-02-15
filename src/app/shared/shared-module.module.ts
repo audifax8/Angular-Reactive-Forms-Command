@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
-// import { DxButtonModule  } from 'devextreme-angular';
+import { DevExtremeModule } from 'devextreme-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
   imports: [
-    // DxButtonModule ,
+    DevExtremeModule,
     ReactiveFormsModule,
     FormsModule
   ],
   exports: [
-    // DxButtonModule ,
+    DevExtremeModule,
     ReactiveFormsModule,
     FormsModule
   ],
