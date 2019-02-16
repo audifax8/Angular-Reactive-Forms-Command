@@ -1,5 +1,6 @@
 export const AppConstants = {
-    ID: 'ID',
+    TYPE_ID: 'TYPE_ID',
+    ID_NUMBER: 'ID_NUMBER',
     NAME: 'NAME',
     LAST_NAME: 'LAST_NAME',
     PHONE: 'PHONE',
@@ -7,4 +8,8 @@ export const AppConstants = {
     COUNTRY: 'COUNTRY',
     DEPARTAMENT: 'DEPARTAMENT',
     CITY: 'CITY',
+    DESCRIPTION: 'DESCRIPTION',
+    EMAIL: 'EMAIL',
+    PASSWORD: 'PASSWORD',
+    PASSWORD_CONFIRM: 'PASSWORD_CONFIRM',
 };
