@@ -8,7 +8,9 @@
           <span class="dx-field-item-required-mark">&nbsp;*</span>
           <dx-select-box [placeholder]="getPlaceholderByInputType(InputType.SelectBox)" [dataSource]="idTypes"
             searchEnabled="true" name="TYPE_ID" formControlName="{{AppConstants.TYPE_ID}}" displayExpr="value"
-            valueExpr="id" showClearButton="true" [isValid]="true" (onValueChanged)="onChangeIdType($event)">
+            valueExpr="id" showClearButton="true"
+            [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.TYPE_ID, form)"
+            (onValueChanged)="onChangeIdType($event)">
           </dx-select-box>
           <app-show-error [formControl]="form.get(AppConstants.TYPE_ID)" ngDefaultControl></app-show-error>
         </div>
@@ -18,7 +20,8 @@
           <label for="formGroupExampleInput">Número Identificación</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
           <dx-number-box [placeholder]="getPlaceholderByInputType(InputType.NumberBox)" min=0
-            formControlName="{{AppConstants.ID_NUMBER}}" [showClearButton]="true" [isValid]="true"
+            formControlName="{{AppConstants.ID_NUMBER}}" [showClearButton]="true"
+            [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.ID_NUMBER, form)"
             (onValueChanged)="onChangeIdNumber($event)">
           </dx-number-box>
           <app-show-error [formControl]="form.get(AppConstants.ID_NUMBER)" ngDefaultControl></app-show-error>
@@ -31,7 +34,8 @@
           <label for="formGroupExampleInput">Nombres</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
           <dx-text-box [placeholder]="getPlaceholderByInputType(InputType.TextBox)"
-            formControlName="{{AppConstants.NAME}}" [showClearButton]="true" [isValid]="true"
+            formControlName="{{AppConstants.NAME}}" [showClearButton]="true"
+            [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.NAME, form)"
             (onValueChanged)="onChangeName($event)">
           </dx-text-box>
         </div>
@@ -41,7 +45,8 @@
           <label for="formGroupExampleInput">Apellidos</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
           <dx-text-box [placeholder]="getPlaceholderByInputType(InputType.TextBox)"
-            formControlName="{{AppConstants.LAST_NAME}}" [showClearButton]="true" [isValid]="true"
+            formControlName="{{AppConstants.LAST_NAME}}" [showClearButton]="true"
+            [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.LAST_NAME, form)"
             (onValueChanged)="onChangeLastName($event)">
           </dx-text-box>
         </div>
@@ -53,7 +58,8 @@
           <label for="formGroupExampleInput">Teléfono</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
           <dx-number-box [placeholder]="getPlaceholderByInputType(InputType.NumberBox)" min=0
-            formControlName="{{AppConstants.PHONE}}" [showClearButton]="true" [isValid]="true"
+            formControlName="{{AppConstants.PHONE}}" [showClearButton]="true"
+            [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.PHONE, form)"
             (onValueChanged)="onChangePhone($event)">
           </dx-number-box>
         </div>
@@ -63,7 +69,8 @@
           <label for="formGroupExampleInput">Dirección</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
           <dx-text-box [placeholder]="getPlaceholderByInputType(InputType.TextBox)"
-            formControlName="{{AppConstants.ADDRESS}}" [showClearButton]="true" [isValid]="true"
+            formControlName="{{AppConstants.ADDRESS}}" [showClearButton]="true"
+            [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.ADDRESS, form)"
             (onValueChanged)="onChangeAddress($event)">
           </dx-text-box>
         </div>
@@ -75,7 +82,8 @@
           <label for="formGroupExampleInput">Correo</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
           <dx-text-box [placeholder]="getPlaceholderByInputType(InputType.TextBox)"
-            formControlName="{{AppConstants.EMAIL}}" [showClearButton]="true" [isValid]="true"
+            formControlName="{{AppConstants.EMAIL}}" [showClearButton]="true"
+            [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.EMAIL, form)"
             (onValueChanged)="onChangeEmail($event)">
           </dx-text-box>
         </div>
@@ -85,7 +93,8 @@
           <label for="formGroupExampleInput">Contraseña</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
           <dx-text-box [placeholder]="getPlaceholderByInputType(InputType.TextBox)"
-            formControlName="{{AppConstants.PASSWORD}}" [showClearButton]="true" [isValid]="true"
+            formControlName="{{AppConstants.PASSWORD}}" [showClearButton]="true"
+            [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.PASSWORD, form)"
             (onValueChanged)="onChangePassword($event)">
           </dx-text-box>
         </div>
@@ -95,7 +104,8 @@
           <label for="formGroupExampleInput">Confirmar contraseña</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
           <dx-text-box [placeholder]="getPlaceholderByInputType(InputType.TextBox)"
-            formControlName="{{AppConstants.PASSWORD_CONFIRM}}" [showClearButton]="true" [isValid]="true"
+            formControlName="{{AppConstants.PASSWORD_CONFIRM}}" [showClearButton]="true"
+            [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.PASSWORD_CONFIRM, form)"
             (onValueChanged)="onChangeConfirmPassword($event)">
           </dx-text-box>
         </div>
@@ -107,13 +117,18 @@
           <label for="formGroupExampleInput">Descripción</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
           <dx-text-area [placeholder]="getPlaceholderByInputType(InputType.TextBox)"
-            formControlName="{{AppConstants.DESCRIPTION}}" [isValid]="true"
+            formControlName="{{AppConstants.DESCRIPTION}}"
+            [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.DESCRIPTION, form)"
             (onValueChanged)="onChangeDescription($event)">
           </dx-text-area>
         </div>
       </div>
     </div>
-
+    <div class="row">
+      <dx-button width="120" text="Resetar" type="danger" (onClick)="loadFormByState(FormState.DEFAULT)"></dx-button>
+      <dx-button width="120" text="Editar" type="default" (onClick)="loadFormByState(FormState.EDIT)"></dx-button>
+      <dx-button width="120" text="Definitivo" type="success" (onClick)="loadFormByState(FormState.DEFINITIVE)"></dx-button>
+    </div>
     <pre>
       {{form.value|json}}
     </pre>

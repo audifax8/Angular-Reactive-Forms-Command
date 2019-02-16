@@ -1,5 +1,5 @@
 export enum FormState {
     DEFAULT = 'DEFAULT',
-    EDIT = 'DEFINITIVE',
+    EDIT = 'EDIT',
     DEFINITIVE = 'DEFINITIVE',
 }

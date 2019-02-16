@@ -3,8 +3,10 @@ import { DevExtremeModule } from 'devextreme-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShowErrorComponent } from './components/show-error/show-error.component';
 import { CommonModule } from '@angular/common';
+import { FormService } from './services';
 
 const COMPONENTS = [ShowErrorComponent];
+const SERVICES = [FormService];
 
 @NgModule({
   declarations: [...COMPONENTS],
@@ -21,5 +23,8 @@ const COMPONENTS = [ShowErrorComponent];
     COMPONENTS,
     CommonModule,
   ],
+  providers: [
+    ...SERVICES
+  ]
 })
 export class SharedModuleModule { }
