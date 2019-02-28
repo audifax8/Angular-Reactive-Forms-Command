@@ -1,26 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
-import { IFormCommand } from '../../shared/interfaces';
 
 @Injectable()
 export class FormService {
 
-  private commandList: IFormCommand[] = [];
-
   constructor() {
-  }
-
-  public addCommand(command: IFormCommand): void {
-      this.commandList = this.commandList.concat(command);
-  }
-
-  public executeCommands(form: FormGroup): void {
-      this.commandList.forEach(
-          (commad) => {
-            commad.execute(form);
-          }
-      );
-      this.commandList = [];
   }
 
   public getInputValue(inputName: string, form: FormGroup): any {
@@ -31,7 +15,7 @@ export class FormService {
   }
 
   /**
-   * for customer experience.
+   * it's used to mark an input as invalid.
    */
   public isTouchedOrDirtyAndInvalid(inputName: string, form: FormGroup): boolean {
     const inputFormControl = form.get(inputName) as FormControl;

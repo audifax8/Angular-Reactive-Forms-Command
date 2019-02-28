@@ -3,10 +3,10 @@ import { DevExtremeModule } from 'devextreme-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShowErrorComponent } from './components/show-error/show-error.component';
 import { CommonModule } from '@angular/common';
-import { FormService } from './services';
+import { FormService, CommandService } from './services';
 
 const COMPONENTS = [ShowErrorComponent];
-const SERVICES = [FormService];
+const SERVICES = [FormService, CommandService];
 
 @NgModule({
   declarations: [...COMPONENTS],

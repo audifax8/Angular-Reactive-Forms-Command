@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppConstants } from './app.constants';
 import { FormState, IdType, InputType, InputCommand } from './shared/enums';
 import { IGenerericBox, IUser } from './shared/interfaces';
-import { FormService } from './shared/services';
+import { FormService, CommandService } from './shared/services';
 import { CommandInputValue, CommandInputState, CommandValidationRule } from './shared/util';
 
 @Component({
@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     public formService: FormService,
+    private commandService: CommandService
   ) {
   }
 
@@ -83,74 +84,74 @@ export class AppComponent implements OnInit {
     this.setFormValuesByState(formState);
     this.setFormInputsByState(formState);
     this.setFormValidationRulesByState(formState);
-    this.formService.executeCommands(this.form);
+    this.commandService.executeCommands(this.form);
   }
 
   private setFormValuesByState(formState: FormState): void {
     if (formState === FormState.DEFAULT) {
       this.formService.reset(this.form);
     } else {
-      this.formService.addCommand(new CommandInputValue(AppConstants.ID_NUMBER, this.user.numberId));
-      this.formService.addCommand(new CommandInputValue(AppConstants.PASSWORD_CONFIRM, this.user.passworConfirm));
-      this.formService.addCommand(new CommandInputValue(AppConstants.TYPE_ID, this.user.typeId));
-      this.formService.addCommand(new CommandInputValue(AppConstants.NAME, this.user.name));
-      this.formService.addCommand(new CommandInputValue(AppConstants.LAST_NAME, this.user.lastName));
-      this.formService.addCommand(new CommandInputValue(AppConstants.PHONE, this.user.phone));
-      this.formService.addCommand(new CommandInputValue(AppConstants.ADDRESS, this.user.address));
-      this.formService.addCommand(new CommandInputValue(AppConstants.EMAIL, this.user.email));
-      this.formService.addCommand(new CommandInputValue(AppConstants.PASSWORD, this.user.password));
-      this.formService.addCommand(new CommandInputValue(AppConstants.DESCRIPTION, this.user.description));
+      this.commandService.addCommand(new CommandInputValue(AppConstants.ID_NUMBER, this.user.numberId));
+      this.commandService.addCommand(new CommandInputValue(AppConstants.PASSWORD_CONFIRM, this.user.passworConfirm));
+      this.commandService.addCommand(new CommandInputValue(AppConstants.TYPE_ID, this.user.typeId));
+      this.commandService.addCommand(new CommandInputValue(AppConstants.NAME, this.user.name));
+      this.commandService.addCommand(new CommandInputValue(AppConstants.LAST_NAME, this.user.lastName));
+      this.commandService.addCommand(new CommandInputValue(AppConstants.PHONE, this.user.phone));
+      this.commandService.addCommand(new CommandInputValue(AppConstants.ADDRESS, this.user.address));
+      this.commandService.addCommand(new CommandInputValue(AppConstants.EMAIL, this.user.email));
+      this.commandService.addCommand(new CommandInputValue(AppConstants.PASSWORD, this.user.password));
+      this.commandService.addCommand(new CommandInputValue(AppConstants.DESCRIPTION, this.user.description));
     }
   }
 
   private setFormInputsByState(formState: FormState): void {
     if (formState === FormState.DEFAULT) {
-      this.formService.addCommand(new CommandInputState(AppConstants.ID_NUMBER, InputCommand.Disabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.PASSWORD_CONFIRM, InputCommand.Disabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.TYPE_ID, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.NAME, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.LAST_NAME, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.PHONE, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.ADDRESS, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.EMAIL, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.PASSWORD, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.DESCRIPTION, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.ID_NUMBER, InputCommand.Disabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.PASSWORD_CONFIRM, InputCommand.Disabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.TYPE_ID, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.NAME, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.LAST_NAME, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.PHONE, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.ADDRESS, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.EMAIL, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.PASSWORD, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.DESCRIPTION, InputCommand.Enabled));
     } else if (formState === FormState.EDIT) {
-      this.formService.addCommand(new CommandInputState(AppConstants.ID_NUMBER, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.PASSWORD_CONFIRM, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.TYPE_ID, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.NAME, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.LAST_NAME, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.PHONE, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.ADDRESS, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.EMAIL, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.PASSWORD, InputCommand.Enabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.DESCRIPTION, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.ID_NUMBER, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.PASSWORD_CONFIRM, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.TYPE_ID, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.NAME, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.LAST_NAME, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.PHONE, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.ADDRESS, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.EMAIL, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.PASSWORD, InputCommand.Enabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.DESCRIPTION, InputCommand.Enabled));
     } else if (formState === FormState.DEFINITIVE) {
-      this.formService.addCommand(new CommandInputState(AppConstants.TYPE_ID, InputCommand.Disabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.ID_NUMBER, InputCommand.Disabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.NAME, InputCommand.Disabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.LAST_NAME, InputCommand.Disabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.PHONE, InputCommand.Disabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.ADDRESS, InputCommand.Disabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.EMAIL, InputCommand.Disabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.PASSWORD, InputCommand.Disabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.PASSWORD_CONFIRM, InputCommand.Disabled));
-      this.formService.addCommand(new CommandInputState(AppConstants.DESCRIPTION, InputCommand.Disabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.TYPE_ID, InputCommand.Disabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.ID_NUMBER, InputCommand.Disabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.NAME, InputCommand.Disabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.LAST_NAME, InputCommand.Disabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.PHONE, InputCommand.Disabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.ADDRESS, InputCommand.Disabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.EMAIL, InputCommand.Disabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.PASSWORD, InputCommand.Disabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.PASSWORD_CONFIRM, InputCommand.Disabled));
+      this.commandService.addCommand(new CommandInputState(AppConstants.DESCRIPTION, InputCommand.Disabled));
     }
   }
 
   private setFormValidationRulesByState(formState: FormState): void {
     if (formState === FormState.DEFAULT) {
-      this.formService.addCommand(new CommandValidationRule(AppConstants.TYPE_ID, [Validators.required]));
-      this.formService.addCommand(new CommandValidationRule(AppConstants.NAME, [Validators.required]));
-      this.formService.addCommand(new CommandValidationRule(AppConstants.LAST_NAME, [Validators.required]));
-      this.formService.addCommand(new CommandValidationRule(AppConstants.PHONE, [Validators.required]));
-      this.formService.addCommand(new CommandValidationRule(AppConstants.ADDRESS, [Validators.required]));
-      this.formService.addCommand(new CommandValidationRule(AppConstants.EMAIL, [Validators.required]));
-      this.formService.addCommand(new CommandValidationRule(AppConstants.PASSWORD, [Validators.required]));
-      this.formService.addCommand(new CommandValidationRule(AppConstants.PASSWORD_CONFIRM, [Validators.required]));
-      this.formService.addCommand(new CommandValidationRule(AppConstants.DESCRIPTION, [Validators.required]));
+      this.commandService.addCommand(new CommandValidationRule(AppConstants.TYPE_ID, [Validators.required]));
+      this.commandService.addCommand(new CommandValidationRule(AppConstants.NAME, [Validators.required]));
+      this.commandService.addCommand(new CommandValidationRule(AppConstants.LAST_NAME, [Validators.required]));
+      this.commandService.addCommand(new CommandValidationRule(AppConstants.PHONE, [Validators.required]));
+      this.commandService.addCommand(new CommandValidationRule(AppConstants.ADDRESS, [Validators.required]));
+      this.commandService.addCommand(new CommandValidationRule(AppConstants.EMAIL, [Validators.required]));
+      this.commandService.addCommand(new CommandValidationRule(AppConstants.PASSWORD, [Validators.required]));
+      this.commandService.addCommand(new CommandValidationRule(AppConstants.PASSWORD_CONFIRM, [Validators.required]));
+      this.commandService.addCommand(new CommandValidationRule(AppConstants.DESCRIPTION, [Validators.required]));
     } else if (formState === FormState.EDIT) {
     } else if (formState === FormState.DEFINITIVE) {
     }
