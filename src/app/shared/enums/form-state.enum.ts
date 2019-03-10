@@ -2,4 +2,6 @@ export enum FormState {
     DEFAULT = 'DEFAULT',
     EDIT = 'EDIT',
     DEFINITIVE = 'DEFINITIVE',
+    MARK_AS_DIRTY_AND_TOUCHED = 'MARK_AS_DIRTY_AND_TOUCHED',
+    RESET = 'RESET',
 }

@@ -2,21 +2,23 @@ import { IFormCommand } from '../interfaces';
 import { FormGroup, FormControl } from '@angular/forms';
 import { InputCommand } from '../enums';
 export class CommandInputState implements IFormCommand {
-    public inputName: string;
-    public inputState: InputCommand;
+    private formGroupIntance: FormGroup;
+    private controlName: string;
+    private inputState: InputCommand;
 
-    constructor(inputName: string, inputState: InputCommand) {
-        this.inputName = inputName;
+    constructor(formGroupIntance: FormGroup, controlName: string, inputState: InputCommand) {
+        this.formGroupIntance = formGroupIntance;
+        this.controlName = controlName;
         this.inputState = inputState;
     }
 
-    public execute(formGroup: FormGroup) {
-        const campoForm = formGroup.get(this.inputName) as FormControl;
-        if (campoForm) {
+    public execute() {
+        const formControl = this.formGroupIntance.get(this.controlName) as FormControl;
+        if (formControl) {
             if (this.inputState === InputCommand.Enabled) {
-                campoForm.enable();
+                formControl.enable();
             } else {
-                campoForm.disable();
+                formControl.disable();
             }
         }
     }

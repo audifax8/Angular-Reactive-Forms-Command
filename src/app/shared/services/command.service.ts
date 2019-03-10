@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { IFormCommand } from '../../shared/interfaces';
 @Injectable()
 export class CommandService {
@@ -13,10 +12,10 @@ export class CommandService {
     this.commandList = this.commandList.concat(command);
   }
 
-  public executeCommands(form: FormGroup): void {
+  public executeCommands(): void {
     this.commandList.forEach(
       (commad) => {
-        commad.execute(form);
+        commad.execute();
       }
     );
     this.commandList = [];

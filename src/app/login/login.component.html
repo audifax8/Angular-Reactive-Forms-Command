@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      Login
+    </div>
+    <div class="card-body">
+      <p class="card-title">loginFormGroup atributo pristine: {{loginFormCommandWay.pristine}}</p>
+      <p class="card-title">loginFormGroup atributo dirty: {{loginFormCommandWay.dirty}}</p>
+      <p class="card-title">loginFormGroup atributo touched: {{loginFormCommandWay.touched}}</p>
+      <p class="card-title">loginFormGroup atributo untouched: {{loginFormCommandWay.untouched}}</p>
+      <p class="card-title">loginFormGroup atributo valid: {{loginFormCommandWay.valid}}</p>
+      <p class="card-title">loginFormGroup atributo invalid: {{loginFormCommandWay.invalid}}</p>
+      <form [formGroup]="loginFormCommandWay" *ngIf="loginFormCommandWay">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="formGroupExampleInput">Username o email:</label>
+              <span class="dx-field-item-required-mark">&nbsp;*</span>
+              <dx-text-box [placeholder]="" formControlName="{{LoginConstants.USER_NAME}}" [showClearButton]="true"
+                [isValid]="formService.isTouchedOrDirtyAndInvalid(LoginConstants.USER_NAME, loginFormCommandWay)">
+              </dx-text-box>
+            </div>
+          </div>
+          <p>userNameFormControl atributo pristine: {{loginFormCommandWay.get(LoginConstants.USER_NAME).pristine}}</p>
+          <p>userNameFormControl atributo dirty: {{loginFormCommandWay.get(LoginConstants.USER_NAME).dirty}}</p>
+          <p>userNameFormControl atributo touched: {{loginFormCommandWay.get(LoginConstants.USER_NAME).touched}}</p>
+          <p>userNameFormControl atributo untouched: {{loginFormCommandWay.get(LoginConstants.USER_NAME).untouched}}</p>
+          <p>userNameFormControl atributo valid: {{loginFormCommandWay.get(LoginConstants.USER_NAME).valid}}</p>
+          <p>userNameFormControl atributo invalid: {{loginFormCommandWay.get(LoginConstants.USER_NAME).invalid}}</p>
+        </div>
+
+        <a href="#" class="btn btn-primary">Iniciar Sesión</a>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+      ¿No tienes una cuenta? Regístrate...
+    </div>
+  </div>
+</div>

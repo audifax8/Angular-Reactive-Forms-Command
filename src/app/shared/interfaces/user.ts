@@ -4,7 +4,7 @@ export interface IUser {
     numberId: number;
     name: string;
     lastName: string;
-    phone: number;
+    phone: string;
     address: string;
     countryId: number;
     departamentId: number;

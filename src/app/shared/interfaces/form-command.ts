@@ -1,4 +1,4 @@
 import { FormGroup } from '@angular/forms';
 export interface IFormCommand {
-    execute(form: FormGroup): void;
+    execute(): void;
 }

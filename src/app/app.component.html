@@ -1,4 +1,5 @@
 <div class="container">
+  <app-login></app-login>
   <hr />
   <form [formGroup]="form" *ngIf="form">
     <div class="row">
@@ -38,6 +39,7 @@
             [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.NAME, form)"
             (onValueChanged)="onChangeName($event)">
           </dx-text-box>
+          <app-show-error [formControl]="form.get(AppConstants.NAME)" ngDefaultControl></app-show-error>
         </div>
       </div>
       <div class="col-md-6">
@@ -49,19 +51,26 @@
             [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.LAST_NAME, form)"
             (onValueChanged)="onChangeLastName($event)">
           </dx-text-box>
+          <app-show-error [formControl]="form.get(AppConstants.LAST_NAME)" ngDefaultControl></app-show-error>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="formGroupExampleInput">Teléfono</label>
+          <label for="formGroupExampleInput">Celular: {{formService.isTouchedOrDirtyAndInvalid(AppConstants.PHONE, form)}}</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
-          <dx-number-box [placeholder]="getPlaceholderByInputType(InputType.NumberBox)" min=0
+          <dx-text-box [placeholder]="getPlaceholderByInputType(InputType.NumberBox)" min=0
             formControlName="{{AppConstants.PHONE}}" [showClearButton]="true"
             [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.PHONE, form)"
             (onValueChanged)="onChangePhone($event)">
-          </dx-number-box>
+          </dx-text-box>
+          <app-show-error [formControl]="form.get(AppConstants.PHONE)" ngDefaultControl></app-show-error>
+          <!-- <dx-text-box [placeholder]="getPlaceholderByInputType(InputType.NumberBox)" min=0
+            formControlName="{{AppConstants.PHONE}}" [showClearButton]="true"
+            [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.PHONE, form)"
+            (onValueChanged)="onChangePhone($event)" [mask]="maskCelPhone" maskInvalidMessage="" [useMaskedValue]="false" showMaskMode="onFocus">
+          </dx-text-box> -->
         </div>
       </div>
       <div class="col-md-6">
@@ -73,6 +82,7 @@
             [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.ADDRESS, form)"
             (onValueChanged)="onChangeAddress($event)">
           </dx-text-box>
+          <app-show-error [formControl]="form.get(AppConstants.ADDRESS)" ngDefaultControl></app-show-error>
         </div>
       </div>
     </div>
@@ -86,28 +96,31 @@
             [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.EMAIL, form)"
             (onValueChanged)="onChangeEmail($event)">
           </dx-text-box>
+          <app-show-error [formControl]="form.get(AppConstants.EMAIL)" ngDefaultControl></app-show-error>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label for="formGroupExampleInput">Contraseña</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
-          <dx-text-box [placeholder]="getPlaceholderByInputType(InputType.TextBox)"
+          <dx-text-box [placeholder]="getPlaceholderByInputType(InputType.TextBox)" mode="password"
             formControlName="{{AppConstants.PASSWORD}}" [showClearButton]="true"
             [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.PASSWORD, form)"
             (onValueChanged)="onChangePassword($event)">
           </dx-text-box>
+          <app-show-error [formControl]="form.get(AppConstants.PASSWORD)" ngDefaultControl></app-show-error>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label for="formGroupExampleInput">Confirmar contraseña</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
-          <dx-text-box [placeholder]="getPlaceholderByInputType(InputType.TextBox)"
+          <dx-text-box [placeholder]="getPlaceholderByInputType(InputType.TextBox)" mode="password"
             formControlName="{{AppConstants.PASSWORD_CONFIRM}}" [showClearButton]="true"
             [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.PASSWORD_CONFIRM, form)"
             (onValueChanged)="onChangeConfirmPassword($event)">
           </dx-text-box>
+          <app-show-error [formControl]="form.get(AppConstants.PASSWORD_CONFIRM)" ngDefaultControl></app-show-error>
         </div>
       </div>
     </div>
@@ -116,21 +129,25 @@
         <div class="form-group">
           <label for="formGroupExampleInput">Descripción</label>
           <span class="dx-field-item-required-mark">&nbsp;*</span>
-          <dx-text-area [placeholder]="getPlaceholderByInputType(InputType.TextBox)"
+          <dx-text-area [placeholder]="getPlaceholderByInputType(InputType.TextBox)" maxLength="500"
             formControlName="{{AppConstants.DESCRIPTION}}"
             [isValid]="formService.isTouchedOrDirtyAndInvalid(AppConstants.DESCRIPTION, form)"
             (onValueChanged)="onChangeDescription($event)">
           </dx-text-area>
+          <app-show-error [formControl]="form.get(AppConstants.DESCRIPTION)" ngDefaultControl></app-show-error>
         </div>
       </div>
     </div>
     <div class="row">
-      <dx-button width="120" text="Resetar" type="danger" (onClick)="loadFormByState(FormState.DEFAULT)"></dx-button>
-      <dx-button width="120" text="Editar" type="default" (onClick)="loadFormByState(FormState.EDIT)"></dx-button>
-      <dx-button width="120" text="Definitivo" type="success" (onClick)="loadFormByState(FormState.DEFINITIVE)"></dx-button>
+      <dx-button width="120" [text]="FormState.RESET" type="danger" (onClick)="formService.reset(form)"></dx-button>
+      <dx-button width="120" [text]="FormState.DEFAULT" type="default" (onClick)="loadFormByState(FormState.DEFAULT)"></dx-button>
+      <dx-button width="120" [text]="FormState.EDIT" type="info" (onClick)="loadFormByState(FormState.EDIT)"></dx-button>
+      <dx-button width="120" [text]="FormState.DEFINITIVE" type="success" (onClick)="loadFormByState(FormState.DEFINITIVE)"></dx-button>
+      <dx-button width="280" [text]="FormState.MARK_AS_DIRTY_AND_TOUCHED" type="default" (onClick)="formService.markAsTouchedAndMarkAsDirty(form)"></dx-button>
     </div>
     <pre>
       {{form.value|json}}
+      {{form.errors|json}}
     </pre>
   </form>
 </div>
