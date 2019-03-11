@@ -1,0 +1,42 @@
+<div class="card mb-4" [ngClass]="getClassName()" *ngIf="form">
+  <div class="card-header">{{name}}</div>
+  <div class="card-body text-dark">
+    <h5 class="card-title">Propiedades</h5>
+    <div class="row">
+      <div class="col-sm-6">
+        Pristine: {{form.pristine}}
+      </div>
+      <div class="col-sm-6">
+        Dirty: {{form.dirty}}
+      </div>
+      <div class="col-sm-6">
+        Touched: {{form.touched}}
+      </div>
+      <div class="col-sm-6">
+        Untouched: {{form.untouched}}
+      </div>
+      <div class="col-sm-6">
+        Invalid: {{form.invalid}}
+      </div>
+      <div class="col-sm-6">
+        Valid: {{form.valid}}
+      </div>
+      <div class="col-sm-6">
+        Enabled: {{form.enabled}}
+      </div>
+      <div class="col-sm-6">
+        Disabled: {{form.disabled}}
+      </div>
+    </div>
+    <!-- <app-show-error [formControl]="form" ngDefaultControl></app-show-error> -->
+    <div>
+      <button type="button" class="btn btn-primary" (click)="form.reset()">Reset</button>
+      <button type="button" class="btn btn-secondary" (click)="form.markAsTouched()">markAsTouched</button>
+      <button type="button" class="btn btn-success" (click)="form.markAsUntouched()">markAsUntouched</button>
+      <button type="button" class="btn btn-danger" (click)="form.markAsPristine()">markAsPristine</button>
+      <button type="button" class="btn btn-warning" (click)="form.markAsDirty()">markAsDirty</button>
+      <button type="button" class="btn btn-danger" (click)="form.enable()">Enable</button>
+      <button type="button" class="btn btn-warning" (click)="form.disable()">Disbled</button>
+    </div>
+  </div>
+</div>

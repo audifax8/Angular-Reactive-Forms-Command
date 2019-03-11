@@ -7,12 +7,10 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormExampleComponent } from './form-example/form-example.component';
 
+const COMPONENTS = [AppComponent, LoginComponent, FormExampleComponent];
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    FormExampleComponent
-  ],
+  declarations: [...COMPONENTS],
   imports: [
     BrowserModule,
     AppRoutingModule,
