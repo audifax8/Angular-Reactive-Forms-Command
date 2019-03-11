@@ -11,6 +11,7 @@ import { FormService, CommandService } from '../shared/services';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
+  regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
   user = new User();
   LoginConstants = LoginConstants;
   loginFormBuilderWay: FormGroup;
@@ -29,7 +30,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginFormCommandWay = this.user.getFormInstance();
     this.commandService.addCommand(new CommandValidationRule(this.loginFormCommandWay, LoginConstants.USER_NAME, [Validators.required]));
-    this.commandService.addCommand(new CommandValidationRule(this.loginFormCommandWay, LoginConstants.PASSWORD, [Validators.required]));
+    this.commandService.addCommand(new CommandValidationRule(
+      this.loginFormCommandWay,
+      LoginConstants.PASSWORD,
+      [Validators.required, Validators.pattern(this.regexPassword)]));
     this.commandService.executeCommands();
 
     this.userNameFormContolWay = new FormControl();

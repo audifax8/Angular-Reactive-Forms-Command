@@ -5,11 +5,13 @@ import { SharedModuleModule } from './shared/shared-module.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { FormExampleComponent } from './form-example/form-example.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    FormExampleComponent
   ],
   imports: [
     BrowserModule,

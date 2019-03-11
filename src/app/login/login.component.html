@@ -19,6 +19,7 @@
               <dx-text-box [placeholder]="" formControlName="{{LoginConstants.USER_NAME}}" [showClearButton]="true"
                 [isValid]="formService.isTouchedOrDirtyAndInvalid(LoginConstants.USER_NAME, loginFormCommandWay)">
               </dx-text-box>
+              <app-show-error [formControl]="loginFormCommandWay.get(LoginConstants.USER_NAME)" ngDefaultControl></app-show-error>
             </div>
           </div>
           <p>userNameFormControl atributo pristine: {{loginFormCommandWay.get(LoginConstants.USER_NAME).pristine}}</p>
@@ -27,6 +28,25 @@
           <p>userNameFormControl atributo untouched: {{loginFormCommandWay.get(LoginConstants.USER_NAME).untouched}}</p>
           <p>userNameFormControl atributo valid: {{loginFormCommandWay.get(LoginConstants.USER_NAME).valid}}</p>
           <p>userNameFormControl atributo invalid: {{loginFormCommandWay.get(LoginConstants.USER_NAME).invalid}}</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="formGroupExampleInput">Constraseña:</label>
+              <span class="dx-field-item-required-mark">&nbsp;*</span>
+              <dx-text-box [placeholder]="" formControlName="{{LoginConstants.PASSWORD}}" [showClearButton]="true"
+                [isValid]="formService.isTouchedOrDirtyAndInvalid(LoginConstants.PASSWORD, loginFormCommandWay)" mode="password">
+              </dx-text-box>
+              <app-show-error [formControl]="loginFormCommandWay.get(LoginConstants.PASSWORD)" ngDefaultControl></app-show-error>
+            </div>
+          </div>
+          <p>passwordFormControl atributo pristine: {{loginFormCommandWay.get(LoginConstants.PASSWORD).pristine}}</p>
+          <p>passwordFormControl atributo dirty: {{loginFormCommandWay.get(LoginConstants.PASSWORD).dirty}}</p>
+          <p>passwordFormControl atributo touched: {{loginFormCommandWay.get(LoginConstants.PASSWORD).touched}}</p>
+          <p>passwordFormControl atributo untouched: {{loginFormCommandWay.get(LoginConstants.PASSWORD).untouched}}</p>
+          <p>passwordFormControl atributo valid: {{loginFormCommandWay.get(LoginConstants.PASSWORD).valid}}</p>
+          <p>passwordFormControl atributo invalid: {{loginFormCommandWay.get(LoginConstants.PASSWORD).invalid}}</p>
         </div>
 
         <a href="#" class="btn btn-primary">Iniciar Sesión</a>
