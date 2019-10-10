@@ -6,13 +6,13 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./login/login.component";
 import { FormExampleComponent } from "./form-example/form-example.component";
-import { AppleComponent } from "./apple/apple.component";
+import { AppleConveyorComponent } from "./apple-coveyor/apple-conveyor.component";
 
 const COMPONENTS = [
   AppComponent,
   LoginComponent,
   FormExampleComponent,
-  AppleComponent
+  AppleConveyorComponent
 ];
 
 @NgModule({

@@ -3,11 +3,17 @@ import { of, Observable, interval, Observer, pipe, BehaviorSubject } from 'rxjs'
 import { map, tap, delay } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-apple',
-  templateUrl: './apple.component.html',
-  styleUrls: ['./apple.component.sass']
+  selector: 'app-apple-conveyor',
+  templateUrl: './apple-conveyor.component.html',
+  styleUrls: ['./apple-conveyor.component.sass']
 })
-export class AppleComponent implements OnInit {
+export class AppleConveyorComponent implements OnInit {
+
+  NEW_APPLE_DELAY = 12000;
+
+  PROCESS_TIME = 2000;
+
+  conveyorSteps = ConveyorStep;
 
   ids = 0;
 
@@ -22,66 +28,53 @@ export class AppleComponent implements OnInit {
   lastEvent$ = new BehaviorSubject<String>(null);
 
   appleStream = new Observable(appleObserver => {
-    interval(7000).subscribe(() => {
+    interval(this.NEW_APPLE_DELAY).subscribe(() => {
       const apple = this.generateRandomApple();
       appleObserver.next(apple);
       this.appleInMachine$.next(apple);
     });
   });
 
-
   constructor() { }
 
   ngOnInit() {
-
-    /*this.redApplesCount$.subscribe(value => console.log('Red count updated: ' + value));
-
-
-    this.greenApplesCount$.subscribe(value => console.log('Green count updated: ' + value));
-
-
-    this.lastApple$.subscribe(value => console.log('Last Apple emited: ' + JSON.stringify(value)));
-
-
-    this.lastEvent$.subscribe(value => console.log('Last Event: ' + JSON.stringify(value)));*/
-
     const sub = this.appleStream
       .pipe(
         map((apple: Apple) => {
           apple.hasLabel = true;
-          this.lastEvent$.next("new Apple");
+          this.updateLastEvent(ConveyorStep.NEW_APPLE);
           this.appleInMachine$.next(apple);
           return apple;
         }
         ),
-        delay(1000),
+        delay(this.PROCESS_TIME),
         map((apple: Apple) => {
           apple.calculateWeight();
-          this.lastEvent$.next("calculateWeight");
+          this.updateLastEvent(ConveyorStep.CALCULATE_WEIGHT);
           this.appleInMachine$.next(apple);
           return apple;
         }),
-        delay(1000),
+        delay(this.PROCESS_TIME),
         map((apple: Apple) => {
           apple.calculatePrice();
-          this.lastEvent$.next("calculatePrice");
+          this.updateLastEvent(ConveyorStep.CALCULATE_PRICE);
           this.appleInMachine$.next(apple);
           return apple;
         }),
-        delay(1000),
+        delay(this.PROCESS_TIME),
         map((apple: Apple) => {
           if (apple.appleType === AppleType.RED) {
             this.redApplesCount$.next((this.redApplesCount$.value) + 1);
           } else {
             this.greenApplesCount$.next((this.greenApplesCount$.value) + 1);
           }
-          this.lastEvent$.next("filter apple");
+          this.updateLastEvent(ConveyorStep.FILTER_APPLE);
           this.appleInMachine$.next(apple);
           return apple;
         }),
-        delay(1000),
+        delay(this.PROCESS_TIME),
         map((apple: Apple) => {
-          this.lastEvent$.next("update last apple");
+          this.updateLastEvent(ConveyorStep.UPDATE_LAST_APPLE);
           this.lastApple$.next(apple);
           this.appleInMachine$.next(null);
           return apple;
@@ -99,6 +92,14 @@ export class AppleComponent implements OnInit {
       false,
       this.ids
     );
+  }
+
+  public updateLastEvent(conveyorStep: ConveyorStep): void {
+    this.lastEvent$.next(conveyorStep);
+  }
+
+  public isActiveStep(conveyorStep: ConveyorStep): boolean {
+    return (this.lastEvent$.value === conveyorStep) ? true : false;
   }
 
 }
@@ -128,4 +129,12 @@ class Apple {
 enum AppleType {
   RED = 1,
   GREEN = 2
+}
+
+enum ConveyorStep {
+  NEW_APPLE = "New Apple",
+  CALCULATE_WEIGHT = "Calculate Weight",
+  CALCULATE_PRICE = "Calculate Price",
+  FILTER_APPLE = "Filter Apple",
+  UPDATE_LAST_APPLE = "Update Last Apple"
 }
