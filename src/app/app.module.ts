@@ -7,12 +7,14 @@ import { AppComponent } from "./app.component";
 import { LoginComponent } from "./login/login.component";
 import { FormExampleComponent } from "./form-example/form-example.component";
 import { AppleConveyorComponent } from "./apple-coveyor/apple-conveyor.component";
+import { AppleComponent } from './apple/apple.component';
 
 const COMPONENTS = [
   AppComponent,
   LoginComponent,
   FormExampleComponent,
-  AppleConveyorComponent
+  AppleConveyorComponent,
+  AppleComponent
 ];
 
 @NgModule({

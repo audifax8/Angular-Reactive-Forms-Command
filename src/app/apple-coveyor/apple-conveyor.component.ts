@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { of, Observable, interval, Observer, pipe, BehaviorSubject } from 'rxjs';
+import { Observable, interval, Observer, pipe, BehaviorSubject } from 'rxjs';
 import { map, tap, delay } from 'rxjs/operators';
+import { Apple } from '../shared/models';
+import { ConveyorStep, AppleType } from '../shared/enums';
 
 @Component({
   selector: 'app-apple-conveyor',
@@ -26,6 +28,10 @@ export class AppleConveyorComponent implements OnInit {
   appleInMachine$ = new BehaviorSubject<Apple>(null);
 
   lastEvent$ = new BehaviorSubject<String>(null);
+
+  reedApples$ = new BehaviorSubject<Apple[]>([]);
+
+  greenApples$ = new BehaviorSubject<Apple[]>([]);
 
   appleStream = new Observable(appleObserver => {
     interval(this.NEW_APPLE_DELAY).subscribe(() => {
@@ -64,8 +70,16 @@ export class AppleConveyorComponent implements OnInit {
         delay(this.PROCESS_TIME),
         map((apple: Apple) => {
           if (apple.appleType === AppleType.RED) {
+            this.updateLastEvent(ConveyorStep.ADD_RED_APPLE);
             this.redApplesCount$.next((this.redApplesCount$.value) + 1);
+            this.reedApples$.next(
+              this.reedApples$.value.concat(apple)
+            );
           } else {
+            this.updateLastEvent(ConveyorStep.ADD_GREEN_APPLE);
+            this.greenApples$.next(
+              this.greenApples$.value.concat(apple)
+            );
             this.greenApplesCount$.next((this.greenApplesCount$.value) + 1);
           }
           this.updateLastEvent(ConveyorStep.FILTER_APPLE);
@@ -104,37 +118,3 @@ export class AppleConveyorComponent implements OnInit {
 
 }
 
-class Apple {
-  id: number;
-  appleType: AppleType;
-  hasLabel: Boolean;
-  price: number;
-  weight: number;
-  constructor(appleType, hasLabel, id) {
-    this.id = id;
-    this.appleType = appleType;
-    this.hasLabel = hasLabel;
-    this.price = 0;
-    this.weight = 0;
-  }
-
-  public calculateWeight(): void {
-    this.weight = Math.random() * (4 - 1) + 1;
-  }
-  public calculatePrice(): void {
-    this.price = this.weight * 1.5;
-  }
-}
-
-enum AppleType {
-  RED = 1,
-  GREEN = 2
-}
-
-enum ConveyorStep {
-  NEW_APPLE = "New Apple",
-  CALCULATE_WEIGHT = "Calculate Weight",
-  CALCULATE_PRICE = "Calculate Price",
-  FILTER_APPLE = "Filter Apple",
-  UPDATE_LAST_APPLE = "Update Last Apple"
-}
