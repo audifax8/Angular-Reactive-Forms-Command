@@ -11,9 +11,9 @@ import { ConveyorStep, AppleType } from '../shared/enums';
 })
 export class AppleConveyorComponent implements OnInit {
 
-  NEW_APPLE_DELAY = 12000;
+  NEW_APPLE_DELAY = 6000;
 
-  PROCESS_TIME = 2000;
+  PROCESS_TIME = 1000;
 
   conveyorSteps = ConveyorStep;
 

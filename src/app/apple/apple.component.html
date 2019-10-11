@@ -1,3 +1,13 @@
-<p>
-  {{apple | async | json}}
-</p>
+<div class="card mb-3" style="max-width: 18rem;">
+  <div class="card-header bg-transparent">{{cardTittle | titlecase}}</div>
+  <div class="card-body" [ngClass]="(apple.appleType === appleType.RED) ? 'text-danger' : 'text-success'"
+    *ngIf="apple$ | async as apple">
+    <h5 class="card-title">id: {{apple.id}}</h5>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Type: {{apple.appleType}}</li>
+      <li class="list-group-item">Has label: {{apple.hasLabel}}</li>
+      <li class="list-group-item">weight: {{apple.weight | number}}</li>
+      <li class="list-group-item">Price: {{apple.price | currency}}</li>
+    </ul>
+  </div>
+</div>

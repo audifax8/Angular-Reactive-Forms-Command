@@ -11,53 +11,54 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-6">
-      <app-apple [apple]="appleInMachine$"></app-apple>
+    <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-6">
+          <app-apple [apple$]="appleInMachine$" [cardTittle]="'Apple in Conveyor'"></app-apple>
+        </div>
+        <div class="col-sm-6">
+          <app-apple [apple$]="lastApple$" [cardTittle]="'Last Apple completed'"></app-apple>
+        </div>
+      </div>
     </div>
-    <div class="col-sm-6">
-      <app-apple [apple]="lastApple$"></app-apple>
+    <div class="col-sm-4">
+      <div *ngFor="let reedApple$ of reedApples$">
+        <app-apple [apple$]="reedApple$" [cardTittle]="'Apple'"></app-apple>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-6">
-      {{reedApples$ | async | json}}
-    </div>
-    <div class="col-sm-6">
-      {{greenApples$ | async | json}}
-    </div>
-  </div>
-  <nav aria-label="Page navigation example">
-    <ul class="pagination pagination-lg justify-content-center">
-      <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.NEW_APPLE) ? 'active' : ''" aria-current="page">
-        <span class="page-link">
-          {{conveyorSteps.NEW_APPLE}}
-          <span class="sr-only"></span>
-        </span>
-      </li>
-      <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.CALCULATE_WEIGHT) ? 'active' : ''">
-        <span class="page-link">
-          {{conveyorSteps.CALCULATE_WEIGHT}}
-          <span class="sr-only"></span>
-        </span>
-      </li>
-      <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.CALCULATE_PRICE) ? 'active' : ''">
-        <span class="page-link">
-          {{conveyorSteps.CALCULATE_PRICE}}
-          <span class="sr-only"></span>
-        </span>
-      </li>
-      <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.FILTER_APPLE) ? 'active' : ''">
-        <span class="page-link">
-          {{conveyorSteps.FILTER_APPLE}}
-          <span class="sr-only"></span>
-        </span>
-      </li>
-      <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.UPDATE_LAST_APPLE) ? 'active' : ''">
-        <span class="page-link">
-          {{conveyorSteps.UPDATE_LAST_APPLE}}
-          <span class="sr-only"></span>
-        </span>
-      </li>
-    </ul>
-  </nav>
 </div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination pagination-lg justify-content-center">
+    <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.NEW_APPLE) ? 'active' : ''" aria-current="page">
+      <span class="page-link">
+        {{conveyorSteps.NEW_APPLE}}
+        <span class="sr-only"></span>
+      </span>
+    </li>
+    <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.CALCULATE_WEIGHT) ? 'active' : ''">
+      <span class="page-link">
+        {{conveyorSteps.CALCULATE_WEIGHT}}
+        <span class="sr-only"></span>
+      </span>
+    </li>
+    <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.CALCULATE_PRICE) ? 'active' : ''">
+      <span class="page-link">
+        {{conveyorSteps.CALCULATE_PRICE}}
+        <span class="sr-only"></span>
+      </span>
+    </li>
+    <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.FILTER_APPLE) ? 'active' : ''">
+      <span class="page-link">
+        {{conveyorSteps.FILTER_APPLE}}
+        <span class="sr-only"></span>
+      </span>
+    </li>
+    <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.UPDATE_LAST_APPLE) ? 'active' : ''">
+      <span class="page-link">
+        {{conveyorSteps.UPDATE_LAST_APPLE}}
+        <span class="sr-only"></span>
+      </span>
+    </li>
+  </ul>
+</nav>
