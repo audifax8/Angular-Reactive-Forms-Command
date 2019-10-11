@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { Apple } from '../shared/models';
 import { AppleType } from '../shared/enums';
 
@@ -10,7 +9,7 @@ import { AppleType } from '../shared/enums';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppleComponent implements OnInit {
-  @Input() apple$: BehaviorSubject<Apple>;
+  @Input() apple: Apple;
   @Input() cardTittle: string;
 
   appleType = AppleType;
@@ -18,6 +17,13 @@ export class AppleComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public getClassType(type): string {
+    if (type === 'border') {
+      return (!this.apple) ? '' : (this.apple.appleType === AppleType.RED) ? 'border-danger' : 'border-success';
+    }
+    return (!this.apple) ? '' : (this.apple.appleType === AppleType.RED) ? 'text-danger' : 'text-success';
   }
 
 }

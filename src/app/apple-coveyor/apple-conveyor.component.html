@@ -1,64 +1,87 @@
 <div class="container">
+  <br>
   <div class="row">
-    <div class="col-sm-4">
-      {{redApplesCount$ | async}}
+    <div class="col-sm-3">
+      <div class="alert alert-danger" role="alert">
+        Total Reed Apples: {{redApplesCount$ | async | number}}
+      </div>
     </div>
-    <div class="col-sm-4">
-      {{greenApplesCount$ | async}}
+    <div class="col-sm-3">
+      <div class="alert alert-success" role="alert">
+        Total Green Apples: {{greenApplesCount$ | async | number }}
+      </div>
     </div>
+    <div class="col-sm-2">
+        <div class="alert alert-dark" role="alert">
+          Total Apples: {{(greenApplesCount$ | async) + (redApplesCount$ | async)}}
+        </div>
+      </div>
     <div class="col-sm-4">
-      {{lastEvent$ | async}}
+      <div class="alert alert-dark" role="alert">
+        Last Event: {{lastEvent$ | async}}
+      </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-7">
       <div class="row">
         <div class="col-sm-6">
-          <app-apple [apple$]="appleInMachine$" [cardTittle]="'Apple in Conveyor'"></app-apple>
+          <app-apple [apple]="appleInMachine$ | async" [cardTittle]="'Apple in Conveyor'"></app-apple>
         </div>
         <div class="col-sm-6">
-          <app-apple [apple$]="lastApple$" [cardTittle]="'Last Apple completed'"></app-apple>
+          <app-apple [apple]="lastApple$ | async" [cardTittle]="'Last Apple completed'"></app-apple>
         </div>
       </div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination pagination-lg justify-content-center">
+          <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.NEW_APPLE) ? 'active' : ''" aria-current="page">
+            <span class="page-link">
+              {{conveyorSteps.NEW_APPLE}}
+              <span class="sr-only"></span>
+            </span>
+          </li>
+          <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.CALCULATE_WEIGHT) ? 'active' : ''">
+            <span class="page-link">
+              {{conveyorSteps.CALCULATE_WEIGHT}}
+              <span class="sr-only"></span>
+            </span>
+          </li>
+          <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.CALCULATE_PRICE) ? 'active' : ''">
+            <span class="page-link">
+              {{conveyorSteps.CALCULATE_PRICE}}
+              <span class="sr-only"></span>
+            </span>
+          </li>
+          <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.FILTER_APPLE) ? 'active' : ''">
+            <span class="page-link">
+              {{conveyorSteps.FILTER_APPLE}}
+              <span class="sr-only"></span>
+            </span>
+          </li>
+          <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.UPDATE_LAST_APPLE) ? 'active' : ''">
+            <span class="page-link">
+              {{conveyorSteps.UPDATE_LAST_APPLE}}
+              <span class="sr-only"></span>
+            </span>
+          </li>
+        </ul>
+      </nav>
     </div>
-    <div class="col-sm-4">
-      <div *ngFor="let reedApple$ of reedApples$">
-        <app-apple [apple$]="reedApple$" [cardTittle]="'Apple'"></app-apple>
+    <div class="col-sm-5">
+      <div class="row">
+        <div class="col-sm-6">
+            <div class="alert alert-danger" role="alert">All Reed Apples</div>
+          <div *ngFor="let reedApple of reedApples$ | async">
+            <app-apple [apple]="reedApple" [cardTittle]="'Apple'"></app-apple>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="alert alert-success" role="alert">All Green Apples</div>
+          <div *ngFor="let greenApple of greenApples$ | async">
+            <app-apple [apple]="greenApple" [cardTittle]="'Apple'"></app-apple>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<nav aria-label="Page navigation example">
-  <ul class="pagination pagination-lg justify-content-center">
-    <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.NEW_APPLE) ? 'active' : ''" aria-current="page">
-      <span class="page-link">
-        {{conveyorSteps.NEW_APPLE}}
-        <span class="sr-only"></span>
-      </span>
-    </li>
-    <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.CALCULATE_WEIGHT) ? 'active' : ''">
-      <span class="page-link">
-        {{conveyorSteps.CALCULATE_WEIGHT}}
-        <span class="sr-only"></span>
-      </span>
-    </li>
-    <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.CALCULATE_PRICE) ? 'active' : ''">
-      <span class="page-link">
-        {{conveyorSteps.CALCULATE_PRICE}}
-        <span class="sr-only"></span>
-      </span>
-    </li>
-    <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.FILTER_APPLE) ? 'active' : ''">
-      <span class="page-link">
-        {{conveyorSteps.FILTER_APPLE}}
-        <span class="sr-only"></span>
-      </span>
-    </li>
-    <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.UPDATE_LAST_APPLE) ? 'active' : ''">
-      <span class="page-link">
-        {{conveyorSteps.UPDATE_LAST_APPLE}}
-        <span class="sr-only"></span>
-      </span>
-    </li>
-  </ul>
-</nav>

@@ -77,10 +77,11 @@ export class AppleConveyorComponent implements OnInit {
             );
           } else {
             this.updateLastEvent(ConveyorStep.ADD_GREEN_APPLE);
+            this.greenApplesCount$.next((this.greenApplesCount$.value) + 1);
             this.greenApples$.next(
               this.greenApples$.value.concat(apple)
             );
-            this.greenApplesCount$.next((this.greenApplesCount$.value) + 1);
+            
           }
           this.updateLastEvent(ConveyorStep.FILTER_APPLE);
           this.appleInMachine$.next(apple);
