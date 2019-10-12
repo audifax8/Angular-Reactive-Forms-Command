@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <br>
   <div class="row">
     <div class="col-sm-3">
@@ -12,24 +12,30 @@
       </div>
     </div>
     <div class="col-sm-2">
-        <div class="alert alert-dark" role="alert">
+        <div class="alert alert-primary" role="alert">
           Total Apples: {{(greenApplesCount$ | async) + (redApplesCount$ | async)}}
         </div>
       </div>
     <div class="col-sm-4">
-      <div class="alert alert-dark" role="alert">
+      <div class="alert alert-primary" role="alert">
         Last Event: {{lastEvent$ | async}}
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-9">
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <app-apple [apple]="appleInMachine$ | async" [cardTittle]="'Apple in Conveyor'"></app-apple>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <app-apple [apple]="lastApple$ | async" [cardTittle]="'Last Apple completed'"></app-apple>
+        </div>
+        <div class="col-sm-3">
+          <app-apple [apple]="expensiveApple$ | async" [cardTittle]="'Expensive Apple'"></app-apple>
+        </div>
+        <div class="col-sm-3">
+          <app-apple [apple]="cheapestApple$ | async" [cardTittle]="'Cheapest Apple'"></app-apple>
         </div>
       </div>
       <nav aria-label="Page navigation example">
@@ -37,51 +43,58 @@
           <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.NEW_APPLE) ? 'active' : ''" aria-current="page">
             <span class="page-link">
               {{conveyorSteps.NEW_APPLE}}
-              <span class="sr-only"></span>
+              <span class="badge badge-light">{{getAppleEmoji(conveyorSteps.NEW_APPLE)}}</span>
             </span>
           </li>
           <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.CALCULATE_WEIGHT) ? 'active' : ''">
             <span class="page-link">
               {{conveyorSteps.CALCULATE_WEIGHT}}
-              <span class="sr-only"></span>
+              <span class="badge badge-light">{{getAppleEmoji(conveyorSteps.CALCULATE_WEIGHT)}}</span>
             </span>
           </li>
           <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.CALCULATE_PRICE) ? 'active' : ''">
             <span class="page-link">
               {{conveyorSteps.CALCULATE_PRICE}}
-              <span class="sr-only"></span>
+              <span class="badge badge-light">{{getAppleEmoji(conveyorSteps.CALCULATE_PRICE)}}</span>
             </span>
           </li>
           <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.FILTER_APPLE) ? 'active' : ''">
             <span class="page-link">
               {{conveyorSteps.FILTER_APPLE}}
-              <span class="sr-only"></span>
+              <span class="badge badge-light">{{getAppleEmoji(conveyorSteps.FILTER_APPLE)}}</span>
             </span>
           </li>
           <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.UPDATE_LAST_APPLE) ? 'active' : ''">
             <span class="page-link">
               {{conveyorSteps.UPDATE_LAST_APPLE}}
-              <span class="sr-only"></span>
+              <span class="badge badge-light">{{getAppleEmoji(conveyorSteps.UPDATE_LAST_APPLE)}}</span>
             </span>
           </li>
         </ul>
       </nav>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-3">
       <div class="row">
         <div class="col-sm-6">
             <div class="alert alert-danger" role="alert">All Reed Apples</div>
-          <div *ngFor="let reedApple of reedApples$ | async">
-            <app-apple [apple]="reedApple" [cardTittle]="'Apple'"></app-apple>
-          </div>
+            <span class="badge badge-light" *ngFor="let reedApple of reedApples$ | async">{{getAppleEmojiByType(reedApple)}}</span>
+            <!--<app-apple [apple]="reedApple" [cardTittle]="'Apple'"></app-apple>-->
         </div>
         <div class="col-sm-6">
           <div class="alert alert-success" role="alert">All Green Apples</div>
-          <div *ngFor="let greenApple of greenApples$ | async">
-            <app-apple [apple]="greenApple" [cardTittle]="'Apple'"></app-apple>
-          </div>
+            <span class="badge badge-light" *ngFor="let greenApple of greenApples$ | async">{{getAppleEmojiByType(greenApple)}}</span>
+            <!--<app-apple [apple]="greenApple" [cardTittle]="'Apple'"></app-apple>-->
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <button type="button" class="btn btn-outline-secondary btn-lg" (click)="subscribe($e)">Subscribe Stream</button>
+      <!--<button type="button" class="btn btn-outline-warning btn-lg" (click)="unSubscribe($e)">Unsubscribe Stream</button>-->
     </div>
   </div>
 </div>

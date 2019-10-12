@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, interval, Observer, pipe, BehaviorSubject } from 'rxjs';
+import { Observable, interval, Observer, pipe, BehaviorSubject, Subscription } from 'rxjs';
 import { map, tap, delay } from 'rxjs/operators';
 import { Apple } from '../shared/models';
 import { ConveyorStep, AppleType } from '../shared/enums';
@@ -25,6 +25,10 @@ export class AppleConveyorComponent implements OnInit {
 
   lastApple$ = new BehaviorSubject<Apple>(null);
 
+  expensiveApple$ = new BehaviorSubject<Apple>(null);
+
+  cheapestApple$ = new BehaviorSubject<Apple>(null);
+
   appleInMachine$ = new BehaviorSubject<Apple>(null);
 
   lastEvent$ = new BehaviorSubject<String>(null);
@@ -41,10 +45,12 @@ export class AppleConveyorComponent implements OnInit {
     });
   });
 
+  subscription;
+
   constructor() { }
 
   ngOnInit() {
-    const sub = this.appleStream
+    this.subscription = this.appleStream
       .pipe(
         map((apple: Apple) => {
           apple.hasLabel = true;
@@ -63,6 +69,8 @@ export class AppleConveyorComponent implements OnInit {
         delay(this.PROCESS_TIME),
         map((apple: Apple) => {
           apple.calculatePrice();
+          this.updateExpensiveApple(apple);
+          this.updateCheapestApple(apple);
           this.updateLastEvent(ConveyorStep.CALCULATE_PRICE);
           this.appleInMachine$.next(apple);
           return apple;
@@ -95,8 +103,7 @@ export class AppleConveyorComponent implements OnInit {
           return apple;
         }),
         tap(apple => console.log(apple))
-      )
-      .subscribe();
+      );
   }
 
   public generateRandomApple(): Apple {
@@ -115,6 +122,44 @@ export class AppleConveyorComponent implements OnInit {
 
   public isActiveStep(conveyorStep: ConveyorStep): boolean {
     return (this.lastEvent$.value === conveyorStep) ? true : false;
+  }
+
+  public getAppleEmoji(conveyorStep: ConveyorStep): string {
+    if (this.isActiveStep(conveyorStep)) {
+      return (!this.appleInMachine$.value) ? '' : (this.appleInMachine$.value.appleType === AppleType.RED) ? '🍎' : '🍏';
+    }
+    return '';
+  }
+
+  public getAppleEmojiByType(apple: Apple): string {
+    return (apple.appleType === AppleType.RED) ? '🍎' : '🍏';
+  }
+
+  private updateExpensiveApple(newApple: Apple): void {
+    const expensiveApple = this.expensiveApple$.value;
+    if (!expensiveApple) {
+      this.expensiveApple$.next(newApple);
+    } else {
+      this.expensiveApple$.next((newApple.price > expensiveApple.price) ? newApple : expensiveApple);
+    }
+  }
+
+  private updateCheapestApple(newApple: Apple): void {
+    const cheapestApple = this.cheapestApple$.value;
+    if (!cheapestApple) {
+      this.cheapestApple$.next(newApple);
+    } else {
+      this.cheapestApple$.next((newApple.price < cheapestApple.price) ? newApple : cheapestApple);
+    }
+  }
+
+  public subscribe(event): void {
+    this.subscription.subscribe();
+  }
+
+  public unSubscribe(event): void {
+    console.log(this.subscription);
+    // this.subscription.complete();
   }
 
 }

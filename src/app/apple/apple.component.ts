@@ -1,12 +1,11 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Apple } from '../shared/models';
 import { AppleType } from '../shared/enums';
 
 @Component({
   selector: 'app-apple',
   templateUrl: './apple.component.html',
-  styleUrls: ['./apple.component.sass'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./apple.component.sass']
 })
 export class AppleComponent implements OnInit {
   @Input() apple: Apple;
