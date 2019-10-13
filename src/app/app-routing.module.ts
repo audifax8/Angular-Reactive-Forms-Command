@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "form-example", component: FormExampleComponent, pathMatch: "full" },
   { path: "apple", component: AppleConveyorComponent, pathMatch: "full" },
-  { path: "", redirectTo: "login", pathMatch: "full" },
+  { path: "", redirectTo: "apple", pathMatch: "full" },
   { path: "**", redirectTo: "form-example" }
 ];
 const config: ExtraOptions = {
