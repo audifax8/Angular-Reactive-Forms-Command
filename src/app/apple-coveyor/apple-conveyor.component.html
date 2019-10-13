@@ -93,8 +93,8 @@
 <div class="container">
   <div class="row">
     <div class="col text-center">
-      <button type="button" class="btn btn-outline-secondary btn-lg" (click)="turnConveyor(true)">Subscribe Stream</button>
-      <button type="button" class="btn btn-outline-warning btn-lg" (click)="turnConveyor(false)">Unsubscribe Stream</button>
+      <button type="button" class="btn btn-secondary btn-lg" (click)="turnConveyor(true)" *ngIf="!isTurnOnCoveyor">Turn On!</button>
+      <button type="button" class="btn btn-warning btn-lg" (click)="turnConveyor(false)" *ngIf="isTurnOnCoveyor">Turn Off!</button>
     </div>
   </div>
 </div>
