@@ -19,3 +19,14 @@ http://localhost:4200/#/form-example
 
 ## Route RxJs Example
 http://localhost:4200/#/apple
+
+## Demo live examples
+
+# Route Login form example
+https://angular-demos-app.herokuapp.com/#/login
+
+# Route Command Example
+https://angular-demos-app.herokuapp.com/#/form-example
+
+# RxJS
+https://angular-demos-app.herokuapp.com/#/apple
