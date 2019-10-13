@@ -37,12 +37,17 @@ export class AppleConveyorComponent implements OnInit {
 
   greenApples$ = new BehaviorSubject<Apple[]>([]);
 
+  isTurnOnCoveyor = false;
+
   appleStream = new Observable(appleObserver => {
-    interval(this.NEW_APPLE_DELAY).subscribe(() => {
-      const apple = this.generateRandomApple();
-      appleObserver.next(apple);
-      this.appleInMachine$.next(apple);
-    });
+    
+      interval(this.NEW_APPLE_DELAY).subscribe(() => {
+        if(this.isTurnOnCoveyor){
+        const apple = this.generateRandomApple();
+        appleObserver.next(apple);
+        this.appleInMachine$.next(apple);
+        }
+      });
   });
 
   subscription;
@@ -103,7 +108,7 @@ export class AppleConveyorComponent implements OnInit {
           return apple;
         }),
         tap(apple => console.log(apple))
-      );
+      ).subscribe();
   }
 
   public generateRandomApple(): Apple {
@@ -153,13 +158,8 @@ export class AppleConveyorComponent implements OnInit {
     }
   }
 
-  public subscribe(event): void {
-    this.subscription.subscribe();
-  }
-
-  public unSubscribe(event): void {
-    console.log(this.subscription);
-    // this.subscription.complete();
+  public turnConveyor(value): void {
+    this.isTurnOnCoveyor = value;
   }
 
 }
