@@ -25,4 +25,8 @@ export class AppleComponent implements OnInit {
     return (!this.apple) ? '' : (this.apple.appleType === AppleType.RED) ? 'text-danger' : 'text-success';
   }
 
+  public getAppleTypeName(): string {
+    return (!this.apple) ? '' : (this.apple.appleType === AppleType.RED) ? `Apple ${AppleType.RED}` : `Apple ${AppleType.GREEN}`;
+  }
+
 }

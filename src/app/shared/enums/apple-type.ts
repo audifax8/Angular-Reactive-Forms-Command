@@ -1,4 +1,4 @@
 export enum AppleType {
-    RED = 1,
-    GREEN = 2
+    RED = 'Red',
+    GREEN = 'Green'
 }

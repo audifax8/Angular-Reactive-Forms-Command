@@ -4,7 +4,7 @@
   >
     <ul class="list-group list-group-flush">
       <li class="list-group-item">id: {{apple?.id}}</li>
-      <li class="list-group-item">Type: {{apple?.appleType}}</li>
+      <li class="list-group-item">Type: {{getAppleTypeName()}}</li>
       <li class="list-group-item">Has label: {{apple?.hasLabel}}</li>
       <li class="list-group-item">weight: {{apple?.weight | number}}</li>
       <li class="list-group-item">Price: {{apple?.price | currency}}</li>
