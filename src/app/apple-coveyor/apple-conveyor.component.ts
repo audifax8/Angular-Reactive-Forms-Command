@@ -11,7 +11,7 @@ import { ConveyorStep, AppleType } from '../shared/enums';
 })
 export class AppleConveyorComponent implements OnInit {
 
-  NEW_APPLE_DELAY = 6000;
+  NEW_APPLE_DELAY = 7000;
 
   PROCESS_TIME = 1000;
 
@@ -40,7 +40,6 @@ export class AppleConveyorComponent implements OnInit {
   isTurnOnCoveyor = false;
 
   appleStream = new Observable(appleObserver => {
-    
       interval(this.NEW_APPLE_DELAY).subscribe(() => {
         if(this.isTurnOnCoveyor){
         const apple = this.generateRandomApple();
@@ -58,12 +57,17 @@ export class AppleConveyorComponent implements OnInit {
     this.subscription = this.appleStream
       .pipe(
         map((apple: Apple) => {
-          apple.hasLabel = true;
           this.updateLastEvent(ConveyorStep.NEW_APPLE);
           this.appleInMachine$.next(apple);
           return apple;
-        }
-        ),
+        }),
+        delay(this.PROCESS_TIME),
+        map((apple: Apple) => {
+          apple.hasLabel = true;
+          this.updateLastEvent(ConveyorStep.SET_LABEL);
+          this.appleInMachine$.next(apple);
+          return apple;
+        }),
         delay(this.PROCESS_TIME),
         map((apple: Apple) => {
           apple.calculateWeight();

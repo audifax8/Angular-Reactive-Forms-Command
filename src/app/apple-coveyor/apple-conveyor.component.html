@@ -46,6 +46,12 @@
               <span class="badge badge-light">{{getAppleEmoji(conveyorSteps.NEW_APPLE)}}</span>
             </span>
           </li>
+          <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.SET_LABEL) ? 'active' : ''" aria-current="page">
+            <span class="page-link">
+              {{conveyorSteps.SET_LABEL}}
+              <span class="badge badge-light">{{getAppleEmoji(conveyorSteps.SET_LABEL)}}</span>
+            </span>
+          </li>
           <li class="page-item" [ngClass]="isActiveStep(conveyorSteps.CALCULATE_WEIGHT) ? 'active' : ''">
             <span class="page-link">
               {{conveyorSteps.CALCULATE_WEIGHT}}

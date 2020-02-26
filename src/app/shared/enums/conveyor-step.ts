@@ -5,5 +5,6 @@ export enum ConveyorStep {
     FILTER_APPLE = "Filter Apple",
     ADD_RED_APPLE = "Add Reed Apple",
     ADD_GREEN_APPLE = "Add Green Apple",
-    UPDATE_LAST_APPLE = "Update Last Apple"
+    UPDATE_LAST_APPLE = "Update Last Apple",
+    SET_LABEL = 'Set label'
 }
