@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, interval, Observer, pipe, BehaviorSubject, Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, interval, BehaviorSubject } from 'rxjs';
 import { map, tap, delay } from 'rxjs/operators';
 import { Apple } from '../shared/models';
 import { ConveyorStep, AppleType } from '../shared/enums';
@@ -9,7 +9,7 @@ import { ConveyorStep, AppleType } from '../shared/enums';
   templateUrl: './apple-conveyor.component.html',
   styleUrls: ['./apple-conveyor.component.sass']
 })
-export class AppleConveyorComponent implements OnInit {
+export class AppleConveyorComponent implements OnInit, OnDestroy {
 
   NEW_APPLE_DELAY = 7000;
 
@@ -113,6 +113,11 @@ export class AppleConveyorComponent implements OnInit {
         }),
         tap(apple => console.log(apple))
       ).subscribe();
+  }
+
+  ngOnDestroy() {
+    // don't forgget unsubscribe
+    this.subscription.unsubscribe();
   }
 
   public generateRandomApple(): Apple {
