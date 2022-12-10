@@ -25,7 +25,7 @@
     "core-js": "^2.5.4",
     "devextreme": "^18.2.6",
     "devextreme-angular": "^18.2.6",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "path": "^0.12.7",
     "rxjs": "~6.3.3",
     "typescript": "~3.1.6",
